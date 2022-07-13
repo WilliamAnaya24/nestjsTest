@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,12 +16,16 @@ export class OrganizationService {
     return 'This action adds a new organization';
   }
 
-  findAll(): Promise<Organization[]> {
-    return this.organizationRepository.find();
+  async findAll(): Promise<Organization[]> {
+    const organizations = await this.organizationRepository.find();
+    if (!organizations.length) {
+      throw new NotFoundException("There aren't organizations");
+    }
+    return organizations;
   }
 
   findOne(id: number): Promise<Organization> {
-    return this.organizationRepository.findOne({ id: id });
+    return this.organizationRepository.findOneBy({ id: id });
   }
 
   update(id: number, updateOrganizationDto: UpdateOrganizationDto) {

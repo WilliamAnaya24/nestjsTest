@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { OrganizationService } from './organization.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('organization')
+@ApiTags('Exercise 2')
 export class OrganizationController {
   constructor(private readonly organizationService: OrganizationService) {}
 
@@ -13,6 +15,9 @@ export class OrganizationController {
   }
 
   @Get()
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: 404, description: 'Not found.' })
+  @ApiResponse({ status: 500, description: 'Internal server error.' })
   findAll() {
     return this.organizationService.findAll();
   }
