@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MockModule } from './components/mock/mock.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormConfig } from './database/config/ormconfig';
+import { OrganizationModule } from './components/organization/organization.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ormConfig } from './database/config/ormconfig';
     }),
     MockModule,
     TypeOrmModule.forRoot(ormConfig()),
+    OrganizationModule,
   ],
   controllers: [],
   providers: [],

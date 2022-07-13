@@ -12,6 +12,11 @@ export function ormConfig(): any {
     extra: {
       options: routingId,
     },
-    migrations: [],
+    synchronize: true, //This parameter should always in false, only when you work locally can turn to true
+    entities: ['dist/components/**/entities/*.entity.js'],
+    migrations: ['dist/database/migrations/*{.ts,.js}'],
+    cli: {
+      migrationsDir: 'src/database/migrations',
+    },
   };
 }
