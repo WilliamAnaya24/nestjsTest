@@ -12,5 +12,6 @@ export function ormConfig(): any {
     extra: {
       options: routingId,
     },
+    migrations: [],
   };
 }
