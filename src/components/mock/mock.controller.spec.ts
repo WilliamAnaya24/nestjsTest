@@ -1,7 +1,6 @@
 import { MockController } from './mock.controller';
 import { MockService } from './mock.service';
 import { Constants } from '../../constants/constants';
-import { CreateMockDto } from "./dto/create-mock.dto";
 
 describe('MockController', () => {
   let controller: MockController;
@@ -13,7 +12,6 @@ describe('MockController', () => {
   });
 
   describe('Get Simulated service', () => {
-    //Use for TDD
     const result = {
       repositories: [
         {
@@ -31,11 +29,14 @@ describe('MockController', () => {
       ],
     };
 
-    it('should return al de repositories indentificators with its verification code', () => {
+    it('should return all the repositories indentificators with its verification code, this test is without use the main service implementation', () => {
       jest
         .spyOn(mockService, 'findAll')
         .mockImplementation(() => Constants.repositories);
       expect(controller.findAll()).toEqual(result);
+    });
+    it('should return al de repositories indentificators with its verification code, this test is with the main service implementation', () => {
+      expect(mockService.findAll()).toEqual(result);
     });
   });
 });
