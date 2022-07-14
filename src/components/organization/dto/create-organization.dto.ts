@@ -11,7 +11,7 @@ import {
 export class CreateOrganizationDto {
   @IsOptional()
   @IsEmpty()
-  id: number;
+  id?: number;
 
   @ApiProperty({ required: true })
   @IsString()
