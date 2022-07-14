@@ -23,11 +23,7 @@ describe('OrganizationController', () => {
         ...dto,
       };
     }),
-    updateTotally: jest.fn().mockImplementation((id: number, dto) => ({
-      id,
-      ...dto,
-    })),
-    updatePartially: jest.fn().mockImplementation((id: number, dto) => ({
+    update: jest.fn().mockImplementation((id: number, dto) => ({
       id,
       ...dto,
     })),
@@ -70,28 +66,17 @@ describe('OrganizationController', () => {
     expect(mockOrganizationService.create).toHaveBeenCalledWith(dto);
   });
 
-  it('should update total an organization', () => {
+  it('should update an organization', () => {
     const dto = {
       name: 'new test',
       status: 1,
     };
-    expect(controller.updateTotal('0', dto)).toEqual({
+    expect(controller.update('0', dto)).toEqual({
       id: 0,
       name: 'new test',
       status: 1,
     });
-    expect(mockOrganizationService.updateTotally).toHaveBeenCalled();
-  });
-
-  it('should update partially an organization', () => {
-    const dto = {
-      name: 'new test',
-    };
-    expect(controller.updatePartial('0', dto)).toEqual({
-      id: 0,
-      name: 'new test',
-    });
-    expect(mockOrganizationService.updatePartially).toHaveBeenCalled();
+    expect(mockOrganizationService.update).toHaveBeenCalled();
   });
 
   it('should find organizations', () => {
@@ -109,15 +94,6 @@ describe('OrganizationController', () => {
     ];
     expect(controller.findAll()).toEqual(dto);
     expect(mockOrganizationService.findAll).toHaveBeenCalled();
-  });
-
-  it('should find organization by id', async () => {
-    const dto = {
-      id: 1,
-      name: 'test1',
-      status: 1,
-    };
-    expect(await controller.findOne('1')).toEqual(dto);
   });
 
   it('should delete an organization', async () => {

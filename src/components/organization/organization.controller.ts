@@ -64,17 +64,6 @@ export class OrganizationController {
     return this.organizationService.findAll();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Get organization by id' })
-  @ApiResponse({
-    status: 200,
-    description: 'Record listed.',
-    type: CreateOrganizationDto,
-  })
-  findOne(@Param('id') id: string) {
-    return this.organizationService.findOne(+id);
-  }
-
   @Patch(':id')
   @ApiOperation({ summary: 'Update partially an organization by id' })
   @ApiResponse({
@@ -82,25 +71,11 @@ export class OrganizationController {
     description: SUCCESS.success.description,
     type: [CreateOrganizationDto],
   })
-  updatePartial(
+  update(
     @Param('id') id: string,
     @Body() updateOrganizationDto: UpdateOrganizationDto,
   ) {
-    return this.organizationService.updatePartially(+id, updateOrganizationDto);
-  }
-
-  @Put(':id')
-  @ApiOperation({ summary: 'Update totally an organization by id' })
-  @ApiResponse({
-    status: 200,
-    description: SUCCESS.success.description,
-    type: [CreateOrganizationDto],
-  })
-  updateTotal(
-    @Param('id') id: string,
-    @Body() updateOrganizationDto: CreateOrganizationDto,
-  ) {
-    return this.organizationService.updateTotally(+id, updateOrganizationDto);
+    return this.organizationService.update(+id, updateOrganizationDto);
   }
 
   @Delete(':id')

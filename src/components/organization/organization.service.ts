@@ -1,4 +1,4 @@
-import { BadGatewayException, Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -27,18 +27,7 @@ export class OrganizationService {
     return organizations;
   }
 
-  findOne(id: number): Promise<Organization> {
-    const organization = this.organizationRepository.findOneBy({ id: id });
-    if (!organization) {
-      throw new NotFoundException();
-    }
-    return organization;
-  }
-
-  async updatePartially(
-    id: number,
-    updateOrganizationDto: UpdateOrganizationDto,
-  ) {
+  async update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
     const organization = await this.organizationRepository.findOneBy({
       id: id,
     });
@@ -49,25 +38,6 @@ export class OrganizationService {
       organization.status = updateOrganizationDto.status;
     }
     return this.organizationRepository.save(organization);
-  }
-
-  async updateTotally(
-    id: number,
-    updateOrganizationDto: CreateOrganizationDto,
-  ) {
-    const organization = await this.organizationRepository.findOneBy({
-      id: id,
-    });
-    if (
-      updateOrganizationDto.name !== null &&
-      updateOrganizationDto.status !== null
-    ) {
-      organization.name = updateOrganizationDto.name;
-      organization.status = updateOrganizationDto.status;
-      return this.organizationRepository.save(organization);
-    } else {
-      throw new BadGatewayException();
-    }
   }
 
   remove(id: number) {
