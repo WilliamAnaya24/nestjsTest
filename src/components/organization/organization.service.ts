@@ -13,7 +13,10 @@ export class OrganizationService {
   ) {}
 
   create(createOrganizationDto: CreateOrganizationDto) {
-    return this.organizationRepository.save(createOrganizationDto);
+    const organization = this.organizationRepository.create(
+      createOrganizationDto,
+    );
+    return this.organizationRepository.save(organization);
   }
 
   async findAll(): Promise<Organization[]> {
