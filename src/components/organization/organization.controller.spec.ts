@@ -17,4 +17,10 @@ describe('OrganizationController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  describe('Should create a new Organization', () => {
+    it('Should create a new Organization with data obtained', () => {
+
+    })
+  })
 });

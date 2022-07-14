@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { BadGatewayException, Injectable, NotFoundException } from "@nestjs/common";
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,7 +13,7 @@ export class OrganizationService {
   ) {}
 
   create(createOrganizationDto: CreateOrganizationDto) {
-    return 'This action adds a new organization';
+    return this.organizationRepository.save(createOrganizationDto);
   }
 
   async findAll(): Promise<Organization[]> {
@@ -25,14 +25,49 @@ export class OrganizationService {
   }
 
   findOne(id: number): Promise<Organization> {
-    return this.organizationRepository.findOneBy({ id: id });
+    const organization = this.organizationRepository.findOneBy({ id: id });
+    if (!organization) {
+      throw new NotFoundException();
+    }
+    return organization;
   }
 
-  update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
-    return `This action updates a #${id} organization`;
+  async updatePartially(
+    id: number,
+    updateOrganizationDto: UpdateOrganizationDto,
+  ) {
+    const organization = await this.organizationRepository.findOneBy({
+      id: id,
+    });
+    if (updateOrganizationDto.name) {
+      organization.name = updateOrganizationDto.name;
+    }
+    if (updateOrganizationDto.status) {
+      organization.status = updateOrganizationDto.status;
+    }
+    return this.organizationRepository.save(organization);
+  }
+
+  async updateTotally(
+    id: number,
+    updateOrganizationDto: CreateOrganizationDto,
+  ) {
+    const organization = await this.organizationRepository.findOneBy({
+      id: id,
+    });
+    if (
+      updateOrganizationDto.name !== null &&
+      updateOrganizationDto.status !== null
+    ) {
+      organization.name = updateOrganizationDto.name;
+      organization.status = updateOrganizationDto.status;
+      return this.organizationRepository.save(organization);
+    } else {
+      throw new BadGatewayException();
+    }
   }
 
   remove(id: number) {
-    return `This action removes a #${id} organization`;
+    return this.organizationRepository.delete({ id: id });
   }
 }
