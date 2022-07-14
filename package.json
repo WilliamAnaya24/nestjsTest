@@ -79,7 +79,6 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node",
-    "modulePathIgnorePatterns": ["__mocks__"]
+    "testEnvironment": "node"
   }
 }
