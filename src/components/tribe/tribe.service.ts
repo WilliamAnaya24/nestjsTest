@@ -14,7 +14,7 @@ export class TribeService {
     private repoRepository: Repository<RepositoryEntity>,
   ) {}
 
-  async find(idTribe?: number) {
+  async find(idTribe: number) {
     const metrics = await this.metricsRepository
       .createQueryBuilder('metrics')
       .leftJoinAndSelect('metrics.repository', 'repository')
@@ -32,21 +32,20 @@ export class TribeService {
         'repository.state as state',
         'organization.name as organization',
       ])
-      .where('tribe.id_tribe = :id_tribe', { id_tribe: 21 })
+      .where('tribe.id_tribe = :id_tribe', { id_tribe: idTribe })
       .andWhere('repository.state = :state', { state: 'E' })
       .getRawMany();
 
     if (!metrics.length) {
-      throw new NotFoundException('La Tribu no se encuentra registrada');
+      /*throw new NotFoundException('La Tribu no se encuentra registrada');*/
     } else {
-      console.log('metrics', metrics);
       const metricsWithCoverage = metrics.filter(
         (metric) => metric.coverage > 75,
       );
       if (!metricsWithCoverage.length) {
-        throw new NotFoundException(
+        /*throw new NotFoundException(
           'La Tribu no tiene repositorios que cumplan con la cobertura necesaria',
-        );
+        );*/
       } else {
         const arrayResult = metricsWithCoverage.map((metric) => {
           metric.verificationState = 'Verificado';

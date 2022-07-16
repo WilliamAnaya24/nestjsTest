@@ -31,14 +31,14 @@ const SUCCESS = Constants.messages.success;
 export class TribeController {
   constructor(private readonly tribeService: TribeService) {}
 
-  @Get()
+  @Get(':id_tribe')
   @ApiResponse({
     status: 200,
     description: SUCCESS.success.description,
     type: SUCCESS.exerciseThreeResponse,
   })
   @ApiOperation({ summary: 'Get repositories metrics' })
-  find() {
-    return this.tribeService.find();
+  find(@Param('id_tribe') id_tribe: number) {
+    return this.tribeService.find(+id_tribe);
   }
 }
