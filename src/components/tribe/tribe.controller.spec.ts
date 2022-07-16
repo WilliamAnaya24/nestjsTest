@@ -86,7 +86,7 @@ describe('TribeController', () => {
         },
       ],
     };
-    expect(controller.find()).toEqual(dto);
+    expect(controller.find(22)).toEqual(dto);
     expect(TribeMockService.find).toHaveBeenCalled();
   });
 });
