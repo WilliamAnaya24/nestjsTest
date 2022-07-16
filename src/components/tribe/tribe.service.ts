@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Tribe } from './entities/tribe.entity';
-import { MoreThan, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Metrics } from './entities/metrics.entity';
 import { Repository as RepositoryEntity } from './entities/repository.entity';
 
@@ -37,15 +37,15 @@ export class TribeService {
       .getRawMany();
 
     if (!metrics.length) {
-      /*throw new NotFoundException('La Tribu no se encuentra registrada');*/
+      throw new NotFoundException('La Tribu no se encuentra registrada');
     } else {
       const metricsWithCoverage = metrics.filter(
         (metric) => metric.coverage > 75,
       );
       if (!metricsWithCoverage.length) {
-        /*throw new NotFoundException(
+        throw new NotFoundException(
           'La Tribu no tiene repositorios que cumplan con la cobertura necesaria',
-        );*/
+        );
       } else {
         const arrayResult = metricsWithCoverage.map((metric) => {
           metric.verificationState = 'Verificado';
