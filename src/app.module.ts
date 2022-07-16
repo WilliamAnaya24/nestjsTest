@@ -1,10 +1,22 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { MockModule } from './components/mock/mock.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ormConfig } from './database/config/ormconfig';
+import { OrganizationModule } from './components/organization/organization.module';
+import { TribeModule } from './components/tribe/tribe.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MockModule,
+    TypeOrmModule.forRoot(ormConfig()),
+    OrganizationModule,
+    TribeModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
