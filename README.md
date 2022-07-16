@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Organization and Tribus Management Challenge, project build with nestJs, TypeOrm and Cockroahdb 
 
 ## Installation
 
@@ -35,16 +35,50 @@ $ npm install
 ## Running the app
 
 ```bash
+# set environments
+rename .env.example to .env and setup the database string connection
+
 # development
 $ npm run start
 
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
+
 ```
 
+## Steps to execute Exercise 1
+```bash
+# run server
+$ npm run start
+
+# go to Swagger documentation
+http://localhost:3000/api
+
+# Go to section Exercise 1 and run to get the results
+```
+
+## Steps to execute Exercise 2
+```bash
+# run server
+$ npm run start
+
+# go to Swagger documentation
+http://localhost:3000/api
+
+# Go to section Exercise 2 and run to get the results
+```
+
+## Steps to execute Exercise 3
+```bash
+# run server
+$ npm run start
+
+# go to Swagger documentation
+http://localhost:3000/api
+
+# Go to section Exercise 3 and run to get the results
+```
 ## Test
 
 ```bash
@@ -55,19 +89,5 @@ $ npm run test
 $ npm run test:e2e
 
 # test coverage
-$ npm run test:cov
+$ npm run test:covS
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
