@@ -1,14 +1,5 @@
-import {
-  BadGatewayException,
-  BadRequestException,
-  ForbiddenException,
-  InternalServerErrorException,
-  NotFoundException,
-  NotImplementedException,
-  ServiceUnavailableException,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { ErrorDto } from "./dto/error.dto";
+import { ErrorDto } from './dto/error.dto';
+import { SuccessExercise3Dto, SuccessExerciseTwoDto } from './dto/success.dto';
 
 export const Constants = {
   repositories: {
@@ -54,6 +45,9 @@ export const Constants = {
         description: 'Service Unavailable',
       },
       type: ErrorDto,
+      tribuNoRegistrada: 'La Tribu no se encuentra registrada',
+      tribuNoCumpleCoverage:
+        'La Tribu no tiene repositorios que cumplan con la cobertura necesaria',
     },
     success: {
       success: {
@@ -62,6 +56,12 @@ export const Constants = {
       created: {
         description: 'created',
       },
+      exerciseTwoResponse: SuccessExerciseTwoDto,
+      exerciseThreeResponse: SuccessExercise3Dto,
+    },
+    states: {
+      enable: 'Habilitado',
+      disable: 'Inactivo',
     },
   },
 };

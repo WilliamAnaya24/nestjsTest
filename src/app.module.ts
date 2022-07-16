@@ -4,6 +4,7 @@ import { MockModule } from './components/mock/mock.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormConfig } from './database/config/ormconfig';
 import { OrganizationModule } from './components/organization/organization.module';
+import { TribeModule } from './components/tribe/tribe.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { OrganizationModule } from './components/organization/organization.modul
     MockModule,
     TypeOrmModule.forRoot(ormConfig()),
     OrganizationModule,
+    TribeModule,
   ],
   controllers: [],
   providers: [],

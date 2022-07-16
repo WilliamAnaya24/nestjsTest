@@ -1,34 +1,44 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { TribeService } from './tribe.service';
-import { CreateTribeDto } from './dto/create-tribe.dto';
-import { UpdateTribeDto } from './dto/update-tribe.dto';
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Constants } from '../../constants/constants';
+const ERRORS = Constants.messages.errors;
+const SUCCESS = Constants.messages.success;
 
 @Controller('tribe')
+@ApiTags('Exercise 3')
+@ApiResponse({
+  status: 400,
+  description: ERRORS.badRequest.description,
+  type: ERRORS.type,
+})
+@ApiResponse({
+  status: 404,
+  description: ERRORS.notFound.description,
+  type: ERRORS.type,
+})
+@ApiResponse({
+  status: 500,
+  description: ERRORS.internalServerError.description,
+  type: ERRORS.type,
+})
+@ApiResponse({
+  status: 502,
+  description: ERRORS.badGateway.description,
+  type: ERRORS.type,
+})
+
 export class TribeController {
   constructor(private readonly tribeService: TribeService) {}
 
-  @Post()
-  create(@Body() createTribeDto: CreateTribeDto) {
-    return this.tribeService.create(createTribeDto);
-  }
-
   @Get()
-  findAll() {
-    return this.tribeService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tribeService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTribeDto: UpdateTribeDto) {
-    return this.tribeService.update(+id, updateTribeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tribeService.remove(+id);
+  @ApiResponse({
+    status: 200,
+    description: SUCCESS.success.description,
+    type: SUCCESS.exerciseThreeResponse,
+  })
+  @ApiOperation({ summary: 'Get repositories metrics' })
+  find() {
+    return this.tribeService.find();
   }
 }

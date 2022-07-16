@@ -58,7 +58,7 @@ export class OrganizationController {
   @ApiResponse({
     status: 200,
     description: SUCCESS.success.description,
-    type: [CreateOrganizationDto],
+    type: [SUCCESS.exerciseTwoResponse],
   })
   findAll() {
     return this.organizationService.findAll();

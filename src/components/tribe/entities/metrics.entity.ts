@@ -1,12 +1,20 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Repository } from './repository.entity';
 
 @Entity()
 export class Metrics {
-  @PrimaryColumn()
-  @OneToOne(() => Repository)
+  @PrimaryGeneratedColumn()
+  id_metric: number;
+
+  @OneToOne(() => Repository, (repository) => repository.id_repository)
   @JoinColumn()
-  repository: number;
+  repository: Repository;
 
   @Column('float', { nullable: false })
   coverage: number;
